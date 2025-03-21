@@ -10,25 +10,23 @@ local item = {
     order = "b[pipe]-m[injector-input]",
     icons = {
         {
-            icon = "__base__/graphics/icons/steel-chest.png",
+            icon = "__base__/graphics/icons/pipe.png",
             icon_size = 64,
+            scale = 0.5,
+            tint = { 0.7, 0.7, 0.7, 0.7 }
         },
         {
-            icon = "__base__/graphics/icons/burner-mining-drill.png",
+            icon = "__lilys-injector__/graphics/icons/injector.png",
             icon_size = 64,
-            scale = 0.25,
-            shift = { -6, -6 }
-        },
-        {
-            icon = "__base__/graphics/icons/pump.png",
-            icon_size = 64,
-            scale = 0.25,
-            shift = { 6, 6 }
+            scale = 0.5,
         },
         {
             icon = "__base__/graphics/icons/arrows/signal-input.png",
             icon_size = 64,
-            tint = { 0.8, 0.8, 0.8, 0.8 }
+            tint = { 0.2, 1, 0.2, 1 },
+            scale = 0.25,
+            shift = { 8, -8 },
+            floating = true,
         }
     },
 
@@ -43,30 +41,8 @@ local entity = {
 
     subgroup = "energy-pipe-distribution",
     order = "b[pipe]-m[injector-input]",
-
-    icons = {
-        {
-            icon = "__base__/graphics/icons/pipe.png",
-            icon_size = 64,
-        },
-        {
-            icon = "__base__/graphics/icons/burner-mining-drill.png",
-            icon_size = 64,
-            scale = 0.25,
-            shift = { -6, -6 }
-        },
-        {
-            icon = "__base__/graphics/icons/pump.png",
-            icon_size = 64,
-            scale = 0.25,
-            shift = { 6, 6 }
-        },
-        {
-            icon = "__base__/graphics/icons/arrows/signal-input.png",
-            icon_size = 64,
-            tint = {0.8, 0.8, 0.8, 0.8}
-        }
-    },
+    fast_replaceable_group = "injector",
+    icons = table.deepcopy(item.icons),
 
     type = "assembling-machine",
     name = "lilys-injector-input",
@@ -91,12 +67,12 @@ local entity = {
 
     damaged_trigger_effect = hit_effects.entity(),
 
----@diagnostic disable-next-line: undefined-global
+    ---@diagnostic disable-next-line: undefined-global
     circuit_wire_max_distance = assembling_machine_circuit_wire_max_distance,
----@diagnostic disable-next-line: undefined-global
+    ---@diagnostic disable-next-line: undefined-global
     circuit_connector = circuit_connector_definitions["assembling-machine"],
 
-    crafting_categories = { "injection", "crafting-with-fluid-or-injection"},
+    crafting_categories = { "injection", "crafting-with-fluid-or-injection" },
     crafting_speed = 4,
     energy_source =
     {
@@ -113,36 +89,47 @@ local entity = {
     {
         {
             production_type = "input",
----@diagnostic disable-next-line: undefined-global
+            ---@diagnostic disable-next-line: undefined-global
             --pipe_picture = assembler2pipepictures(),
----@diagnostic disable-next-line: undefined-global
+            ---@diagnostic disable-next-line: undefined-global
             pipe_covers = pipecoverspictures(),
             always_draw_covers = true,
             volume = 1000,
-            pipe_connections = { 
-                { flow_direction = "input-output", direction = defines.direction.north, position = { 0,  -0.49 } }, 
+            pipe_connections = {
+                { flow_direction = "input-output", direction = defines.direction.north, position = { 0, -0.49 } },
                 { flow_direction = "input-output", direction = defines.direction.south, position = { 0, 0.49 } },
             },
             secondary_draw_orders = { north = -1 }
         },
-        
+
     },
     effect_receiver = { uses_module_effects = true, uses_beacon_effects = true, uses_surface_effects = true },
     impact_category = "metal",
     working_sound =
     {
-        sound = { 
+        sound = {
             {
                 filename = "__base__/sound/pump.ogg", volume = 1, audible_distance_modifier = 1
             },
             {
-                filename = "__base__/sound/train-door-open.ogg", volume = 1, audible_distance_modifier = 1
+                filename = "__base__/sound/train-door-open.ogg",
+                volume = 1,
+                audible_distance_modifier = 1,
+                speed = 2,
+                max_speed = 10
+            },
+            {
+                filename = "__base__/sound/train-door-close.ogg",
+                volume = 1,
+                audible_distance_modifier = 1,
+                speed = 2,
+                max_speed = 10
             }
         },
         fade_in_ticks = 4,
-        fade_out_ticks = 20
+        fade_out_ticks = 20,
     },
-    
+
     graphics_set = {
         animation = {
             north = {
@@ -190,7 +177,7 @@ local entity = {
                         scale = 0.78,
                         shift = { 0, 0 },
                         repeat_count = 62,
-                        tint = {0.8, 0.9, 0.95, 1},
+                        tint = { 0.8, 0.9, 0.95, 1 },
                     },
                     {
                         filename = "__base__/graphics/entity/assembling-machine-3/assembling-machine-3-pipe-S.png",
@@ -209,7 +196,7 @@ local entity = {
                         shift = { 0, -0.6 },
                         line_length = 4,
                         frame_count = 32,
-                        tint = {0.9, 0.9, 0.8, 1},
+                        tint = { 0.9, 0.9, 0.8, 1 },
                         run_mode = "forward-then-backward"
                     },
                     {
@@ -473,7 +460,7 @@ local entity = {
                         width = 110,
                         scale = 0.78,
                         repeat_count = 62,
-                        shift = util.by_pixel(11*0.78*2, 6.5*0.78*2),
+                        shift = util.by_pixel(11 * 0.78 * 2, 6.5 * 0.78 * 2),
                         draw_as_shadow = true,
                     },
                     {
@@ -481,7 +468,7 @@ local entity = {
                         width = 176,
                         height = 130,
                         line_length = 4,
-                        shift = util.by_pixel(9, 16*0.6),
+                        shift = util.by_pixel(9, 16 * 0.6),
                         filename = "__base__/graphics/entity/burner-mining-drill/burner-mining-drill-W-shadow.png",
                         frame_count = 32,
                         animation_speed = 0.5,
@@ -505,28 +492,26 @@ local item2 = table.deepcopy(item)
 item2.name = "lilys-injector-output"
 item2.place_result = "lilys-injector-output"
 item2.icons = {
-        {
-            icon = "__base__/graphics/icons/steel-chest.png",
-            icon_size = 64,
-        },
-        {
-            icon = "__base__/graphics/icons/burner-mining-drill.png",
-            icon_size = 64,
-            scale = 0.25,
-            shift = { -6, -6 }
-        },
-        {
-            icon = "__base__/graphics/icons/pump.png",
-            icon_size = 64,
-            scale = 0.25,
-            shift = { 6, 6 }
-        },
-        {
-            icon = "__base__/graphics/icons/arrows/signal-output.png",
-            icon_size = 64,
-            tint = { 0.8, 0.8, 0.8, 0.8 }
-        }
+    {
+        icon = "__base__/graphics/icons/pipe.png",
+        icon_size = 64,
+        scale = 0.5,
+        tint = { 0.7, 0.7, 0.7, 0.7 }
+    },
+    {
+        icon = "__lilys-injector__/graphics/icons/injector.png",
+        icon_size = 64,
+        scale = 0.5,
+    },
+    {
+        icon = "__base__/graphics/icons/arrows/signal-output.png",
+        icon_size = 64,
+        tint = { 1, 0.2, 0.2, 1 },
+        scale = 0.25,
+        shift = { 8, -8 },
+        floating = true,
     }
+}
 
 item2.order = "b[pipe]-n[injector-output]"
 
@@ -534,7 +519,7 @@ local entity2 = table.deepcopy(entity)
 entity2.name = "lilys-injector-output"
 entity2.minable.result = "lilys-injector-output"
 
-entity2.icons = item2.icons
+entity2.icons = table.deepcopy(item2.icons)
 entity2.fluid_boxes[1].production_type = "output"
 entity2.order = "b[pipe]-n[injector-output]"
 
@@ -545,16 +530,16 @@ local recipe = {
     allow_productivity = false,
     energy_required = 5,
     ingredients = {
-        { type = "item", name = "pump", amount = 1},
+        { type = "item", name = "pump",                amount = 1 },
         { type = "item", name = "burner-mining-drill", amount = 1 },
-        { type = "item", name = "iron-chest",                amount = 1 },
-        { type = "item", name = "pipe", amount = 10 },
+        { type = "item", name = "iron-chest",          amount = 1 },
+        { type = "item", name = "pipe",                amount = 10 },
         { type = "item", name = "iron-gear-wheel",     amount = 4 },
         { type = "item", name = "electronic-circuit",  amount = 4 },
-        
+
     },
-    results = {{type = "item", name = "lilys-injector-input", amount = 1}}
-    
+    results = { { type = "item", name = "lilys-injector-input", amount = 1 } }
+
 }
 
 local recipe2 = {
@@ -615,7 +600,7 @@ local tech = data.raw["technology"]["fluid-handling"]
 table.insert(tech.effects, {
     type = "unlock-recipe",
     recipe = "lilys-injector-input"
-    
+
 })
 table.insert(tech.effects, {
     type = "unlock-recipe",
