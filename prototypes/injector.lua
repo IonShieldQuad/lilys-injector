@@ -6,6 +6,8 @@ local sounds = require("__base__/prototypes/entity/sounds.lua")
 local item = {
     type = "item",
     name = "lilys-injector-input",
+    subgroup = "energy-pipe-distribution",
+    order = "b[pipe]-m[injector-input]",
     icons = {
         {
             icon = "__base__/graphics/icons/steel-chest.png",
@@ -37,6 +39,10 @@ local item = {
 }
 
 local entity = {
+
+
+    subgroup = "energy-pipe-distribution",
+    order = "b[pipe]-m[injector-input]",
 
     icons = {
         {
@@ -494,14 +500,54 @@ local entity = {
 
 
 
+
+local item2 = table.deepcopy(item)
+item2.name = "lilys-injector-output"
+item2.place_result = "lilys-injector-output"
+item2.icons = {
+        {
+            icon = "__base__/graphics/icons/steel-chest.png",
+            icon_size = 64,
+        },
+        {
+            icon = "__base__/graphics/icons/burner-mining-drill.png",
+            icon_size = 64,
+            scale = 0.25,
+            shift = { -6, -6 }
+        },
+        {
+            icon = "__base__/graphics/icons/pump.png",
+            icon_size = 64,
+            scale = 0.25,
+            shift = { 6, 6 }
+        },
+        {
+            icon = "__base__/graphics/icons/arrows/signal-output.png",
+            icon_size = 64,
+            tint = { 0.8, 0.8, 0.8, 0.8 }
+        }
+    }
+
+item2.order = "b[pipe]-n[injector-output]"
+
+local entity2 = table.deepcopy(entity)
+entity2.name = "lilys-injector-output"
+entity2.minable.result = "lilys-injector-output"
+
+entity2.icons = item2.icons
+entity2.fluid_boxes[1].production_type = "output"
+entity2.order = "b[pipe]-n[injector-output]"
+
+
 local recipe = {
     type = "recipe",
     name = "lilys-injector-input",
     allow_productivity = false,
+    energy_required = 5,
     ingredients = {
         { type = "item", name = "pump", amount = 1},
         { type = "item", name = "burner-mining-drill", amount = 1 },
-        { type = "item", name = "steel-chest",                amount = 1 },
+        { type = "item", name = "iron-chest",                amount = 1 },
         { type = "item", name = "pipe", amount = 10 },
         { type = "item", name = "iron-gear-wheel",     amount = 4 },
         { type = "item", name = "electronic-circuit",  amount = 4 },
@@ -509,6 +555,48 @@ local recipe = {
     },
     results = {{type = "item", name = "lilys-injector-input", amount = 1}}
     
+}
+
+local recipe2 = {
+    type = "recipe",
+    name = "lilys-injector-output",
+    allow_productivity = false,
+    energy_required = 5,
+    ingredients = {
+        { type = "item", name = "pump",                amount = 1 },
+        { type = "item", name = "burner-mining-drill", amount = 1 },
+        { type = "item", name = "iron-chest",          amount = 1 },
+        { type = "item", name = "pipe",                amount = 10 },
+        { type = "item", name = "iron-gear-wheel",     amount = 4 },
+        { type = "item", name = "electronic-circuit",  amount = 4 },
+
+    },
+    results = { { type = "item", name = "lilys-injector-output", amount = 1 } }
+
+}
+
+local convert = {
+    type = "recipe",
+    name = "lilys-injector-to-input",
+    allow_productivity = false,
+    allow_quality = false,
+    ingredients = {
+        { type = "item", name = "lilys-injector-output", amount = 1 }
+
+    },
+    results = { { type = "item", name = "lilys-injector-input", amount = 1 } }
+}
+
+local convert2 = {
+    type = "recipe",
+    name = "lilys-injector-to-output",
+    allow_productivity = false,
+    allow_quality = false,
+    ingredients = {
+        { type = "item", name = "lilys-injector-input", amount = 1 }
+
+    },
+    results = { { type = "item", name = "lilys-injector-output", amount = 1 } }
 }
 
 data:extend({
@@ -520,7 +608,7 @@ data:extend({
         type = "recipe-category",
         name = "crafting-with-fluid-or-injection"
     },
-    item, entity, recipe
+    item, entity, recipe, item2, entity2, recipe2, convert, convert2
 })
 
 local tech = data.raw["technology"]["fluid-handling"]
@@ -528,4 +616,18 @@ table.insert(tech.effects, {
     type = "unlock-recipe",
     recipe = "lilys-injector-input"
     
+})
+table.insert(tech.effects, {
+    type = "unlock-recipe",
+    recipe = "lilys-injector-output"
+
+})
+table.insert(tech.effects, {
+    type = "unlock-recipe",
+    recipe = "lilys-injector-to-input"
+
+})
+table.insert(tech.effects, {
+    type = "unlock-recipe",
+    recipe = "lilys-injector-to-output"
 })
