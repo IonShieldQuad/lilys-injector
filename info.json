@@ -1,6 +1,6 @@
 {
 	"name": "lilys-injector",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"title": "Lily's Injector",
 	"author": "MsBinaryLily",
 	"description": "A compact and fast building that does one thing good: it puts fluid from one vessel to another. Either small(barrel) to big(pipe), or vice versa. WARRANTY VOID if attempting to perform injections on human (or not) characters.",

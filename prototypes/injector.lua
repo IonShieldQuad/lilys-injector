@@ -569,7 +569,8 @@ local convert = {
         { type = "item", name = "lilys-injector-output", amount = 1 }
 
     },
-    results = { { type = "item", name = "lilys-injector-input", amount = 1 } }
+    results = { { type = "item", name = "lilys-injector-input", amount = 1 } },
+    auto_recycle = false,
 }
 
 local convert2 = {
@@ -581,7 +582,8 @@ local convert2 = {
         { type = "item", name = "lilys-injector-input", amount = 1 }
 
     },
-    results = { { type = "item", name = "lilys-injector-output", amount = 1 } }
+    results = { { type = "item", name = "lilys-injector-output", amount = 1 } },
+    auto_recycle = false,
 }
 
 data:extend({
