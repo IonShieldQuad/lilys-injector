@@ -151,7 +151,7 @@ local entity = {
                         repeat_count = 62
                     },
                     {
-                        filename = "__base__/graphics/entity/pump/pump-south.png",
+                        filename = "__lilys-injector__/graphics/entity/pump-south.png",
                         height = 160,
                         width = 114,
                         scale = 0.25,
@@ -161,7 +161,7 @@ local entity = {
                         run_mode = "forward-then-backward"
                     },
                     {
-                        filename = "__base__/graphics/entity/pump/pump-south.png",
+                        filename = "__lilys-injector__/graphics/entity/pump-south.png",
                         height = 160,
                         width = 114,
                         scale = 0.25,
@@ -242,7 +242,7 @@ local entity = {
                         repeat_count = 62
                     },
                     {
-                        filename = "__base__/graphics/entity/pump/pump-south.png",
+                        filename = "__lilys-injector__/graphics/entity/pump-south.png",
                         height = 160,
                         width = 114,
                         scale = 0.25,
@@ -252,7 +252,7 @@ local entity = {
                         run_mode = "forward-then-backward"
                     },
                     {
-                        filename = "__base__/graphics/entity/pump/pump-south.png",
+                        filename = "__lilys-injector__/graphics/entity/pump-south.png",
                         height = 160,
                         width = 114,
                         scale = 0.25,
@@ -333,7 +333,7 @@ local entity = {
                         repeat_count = 62
                     },
                     {
-                        filename = "__base__/graphics/entity/pump/pump-south.png",
+                        filename = "__lilys-injector__/graphics/entity/pump-south.png",
                         height = 160,
                         width = 114,
                         scale = 0.25,
@@ -343,7 +343,7 @@ local entity = {
                         run_mode = "forward-then-backward"
                     },
                     {
-                        filename = "__base__/graphics/entity/pump/pump-south.png",
+                        filename = "__lilys-injector__/graphics/entity/pump-south.png",
                         height = 160,
                         width = 114,
                         scale = 0.25,
@@ -415,7 +415,7 @@ local entity = {
                         repeat_count = 62
                     },
                     {
-                        filename = "__base__/graphics/entity/pump/pump-south.png",
+                        filename = "__lilys-injector__/graphics/entity/pump-south.png",
                         height = 160,
                         width = 114,
                         scale = 0.25,
@@ -425,7 +425,7 @@ local entity = {
                         run_mode = "forward-then-backward"
                     },
                     {
-                        filename = "__base__/graphics/entity/pump/pump-south.png",
+                        filename = "__lilys-injector__/graphics/entity/pump-south.png",
                         height = 160,
                         width = 114,
                         scale = 0.25,
@@ -485,6 +485,11 @@ local entity = {
 
 }
 
+if mods["bobplates"] then
+    table.insert(entity.crafting_categories, "barreling")
+    table.insert(entity.crafting_categories, "bob-water-pump")
+    table.insert(entity.crafting_categories, "bob-air-pump")
+end
 
 
 
