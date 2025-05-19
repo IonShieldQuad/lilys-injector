@@ -72,7 +72,7 @@ local entity = {
     ---@diagnostic disable-next-line: undefined-global
     circuit_connector = circuit_connector_definitions["assembling-machine"],
 
-    crafting_categories = { "injection", "crafting-with-fluid-or-injection" },
+    crafting_categories = { "injection"},
     crafting_speed = 4,
     energy_source =
     {
@@ -484,13 +484,13 @@ local entity = {
     }
 
 }
-
+--[[
 if mods["bobplates"] then
     table.insert(entity.crafting_categories, "barreling")
     table.insert(entity.crafting_categories, "bob-water-pump")
     table.insert(entity.crafting_categories, "bob-air-pump")
 end
-
+--]]
 
 
 local item2 = table.deepcopy(item)
@@ -596,10 +596,10 @@ data:extend({
         type = "recipe-category",
         name = "injection"
     },
-    {
+    --[[{
         type = "recipe-category",
         name = "crafting-with-fluid-or-injection"
-    },
+    },--]]
     item, entity, recipe, item2, entity2, recipe2, convert, convert2
 })
 

@@ -1,4 +1,4 @@
-if not mods["bobplates"] then
+--if not mods["bobplates"] then
     --update barreling recipes
     for name, recipe in pairs(data.raw["recipe"]) do
         if recipe.category == "crafting-with-fluid" and recipe.ingredients and recipe.results and recipe.subgroup and (recipe.subgroup == "fill-barrel" or recipe.subgroup == "empty-barrel") then
@@ -16,14 +16,17 @@ if not mods["bobplates"] then
                 end
 
                 if barrel then
-                    recipe.category = "crafting-with-fluid-or-injection"
+                    if not recipe.additional_categories then
+                        recipe.additional_categories = {}
+                    end
+                    table.insert(recipe.additional_categories, "injection")
                 end
             end
         end
     end
 
 
-    --update assembling machines
+    --[[update assembling machines
     for name, am in pairs(data.raw["assembling-machine"]) do
         if am.crafting_categories then
             local cats = {}
@@ -38,5 +41,5 @@ if not mods["bobplates"] then
                 end
             end
         end
-    end
-end
+    end--]]
+--end
